@@ -56,6 +56,11 @@ namespace DotnetCoreServer.Models
             UpgradeData data = new UpgradeData();
             using (MySqlConnection conn = db.GetConnection())
             {   
+                if(conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                
                 conn.Open();
                 string query = String.Format(
                     @"
