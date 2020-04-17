@@ -1,4 +1,3 @@
-
 namespace DotnetCoreServer.Models
 {
     public class UpgradeRequest
