@@ -23,15 +23,21 @@ namespace DotnetCoreServer.Models
             List<UpgradeData> list = new List<UpgradeData>();
             using (MySqlConnection conn = db.GetConnection())
             {   
+                if(conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
 
                 conn.Open();
-                string query = String.Format(
-                    "SELECT upgrade_type, upgrade_level, upgrade_amount, upgrade_cost FROM tb_upgrade_info");
+
+                string query = String.Format("SELECT upgrade_type, upgrade_level, upgrade_amount, upgrade_cost FROM tb_upgrade_info");
 
                 Console.WriteLine(query);
+
                 using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                 {
                     cmd.CommandText = query;
+                    
                     using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                     {
                         while (reader.Read())
