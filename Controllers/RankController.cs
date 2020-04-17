@@ -51,6 +51,5 @@ namespace DotnetCoreServer.Controllers
             return result;
 
         }
-
     }
 }
