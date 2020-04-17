@@ -40,6 +40,22 @@ namespace DotnetCoreServer.Controllers
         }
 
         [HttpPost]
+        public UserResult AddDiamond([FromBody] AddUser user)
+        {
+            UserResult result = null;
+
+            result = new UserResult();
+
+            userDao.GetUser(user.UserID).Diamond = user.AddDiamond;
+
+            result.Data = userDao.GetUser(user.UserID);
+            result.ResultCode = 1;
+            result.Message = "Success";
+
+            return result;
+        }
+
+        [HttpPost]
         public GainPointResult GainPoint([FromBody] GainPoint point)
         {
             GainPointResult result = null;

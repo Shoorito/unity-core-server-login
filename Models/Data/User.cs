@@ -29,4 +29,10 @@ namespace DotnetCoreServer.Models
 
 
     }
+
+    public class AddUser
+    {
+        public int UserID;
+        public int AddDiamond;
+    }
 }

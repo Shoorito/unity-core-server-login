@@ -37,7 +37,7 @@ namespace DotnetCoreServer.Models
                 using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                 {
                     cmd.CommandText = query;
-                    
+
                     using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -60,6 +60,7 @@ namespace DotnetCoreServer.Models
         public UpgradeData GetUpgradeInfo(string UpgradeType, int UpgradeLevel){
             
             UpgradeData data = new UpgradeData();
+
             using (MySqlConnection conn = db.GetConnection())
             {   
                 if(conn.State == System.Data.ConnectionState.Open)
@@ -77,24 +78,33 @@ namespace DotnetCoreServer.Models
                     FROM tb_upgrade_info
                     WHERE upgrade_type = '{0}' AND upgrade_level = {1}
                     ", UpgradeType, UpgradeLevel);
-
-                Console.WriteLine(query);
-                using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
+                
+                try
                 {
-                    cmd.CommandText = query;
-                    using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
+                    Console.WriteLine(query);
+
+                    using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                     {
-                        if (reader.Read())
+                        cmd.CommandText = query;
+
+                        using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                         {
-                            data.UpgradeType = reader.GetString(0);
-                            data.UpgradeLevel = reader.GetInt32(1);
-                            data.UpgradeAmount = reader.GetInt32(2);
-                            data.UpgradeCost = reader.GetInt32(3);
-                            return data;
+                            if (reader.Read())
+                            {
+                                data.UpgradeType   = reader.GetString(0);
+                                data.UpgradeLevel  = reader.GetInt32(1);
+                                data.UpgradeAmount = reader.GetInt32(2);
+                                data.UpgradeCost   = reader.GetInt32(3);
+
+                                return data;
+                            }
                         }
                     }
                 }
-
+                catch
+                {
+                    return null;
+                }
             }
             
             return null;
