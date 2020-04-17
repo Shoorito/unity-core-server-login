@@ -133,13 +133,6 @@ namespace DotnetCoreServer.Models
         public bool UpdateUser(User user){
             using(MySqlConnection conn = db.GetConnection())
             {
-                if(conn.State == System.Data.ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-
-                conn.Open();
-
                 string query = String.Format(
                     @"
                     UPDATE tb_user SET 

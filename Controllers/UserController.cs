@@ -38,35 +38,6 @@ namespace DotnetCoreServer.Controllers
 
             return result;
         }
-
-        [HttpPost]
-        public GainPointResult GainPoint([FromBody] GainPoint point)
-        {
-            User user = null;
-            GainPointResult result = null;
-
-            user   = userDao.GetUser(point.UserID);
-            result = new GainPointResult();
-
-            if(user != null)
-            {
-
-                result.ResultCode = 1;
-                result.AddPoint   = point.AddPoint;
-                result.Message    = "Success!";
-
-                user.Point = user.Point + point.AddPoint;
-
-                userDao.UpdateUser(user);
-            }
-            else
-            {
-                result.ResultCode = 0;
-                result.Message    = "Failed!";
-            }
-
-            return result;
-        }
     }
 
 }
