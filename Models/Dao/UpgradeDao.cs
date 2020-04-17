@@ -79,14 +79,14 @@ namespace DotnetCoreServer.Models
                     WHERE upgrade_type = '{0}' AND upgrade_level = {1}
                     ", UpgradeType, UpgradeLevel);
                 
-                try
+                Console.WriteLine(query);
+
+                using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                 {
-                    Console.WriteLine(query);
+                    cmd.CommandText = query;
 
-                    using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
+                    try
                     {
-                        cmd.CommandText = query;
-
                         using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -100,11 +100,12 @@ namespace DotnetCoreServer.Models
                             }
                         }
                     }
+                    catch
+                    {
+                        return null;
+                    }
                 }
-                catch
-                {
-                    return null;
-                }
+
             }
             
             return null;
