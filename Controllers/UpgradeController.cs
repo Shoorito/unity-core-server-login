@@ -64,6 +64,14 @@ namespace DotnetCoreServer.Controllers
                 // 유효하지 않은 업그레이드 타입입니다.
             }
 
+            if(upgradeInfo == null)
+            {
+                // 최대 레벨에 도달했습니다.
+                result.ResultCode = 4;
+                result.Message = "Upgrade Fail : Max Level";
+                return result;
+            }
+
             // 다이아몬드가 있는지?
             if(user.Diamond < upgradeInfo.UpgradeCost){
                 // TODO: 돈이 없어서 업그레이드 못해줌
@@ -71,14 +79,6 @@ namespace DotnetCoreServer.Controllers
                 result.Message = "Not Enough Diamond";
                 return result;
 
-            }
-
-            if(upgradeInfo == null)
-            {
-                // 최대 레벨에 도달했습니다.
-                result.ResultCode = 4;
-                result.Message = "Upgrade Fail : Max Level";
-                return result;
             }
 
             if("Health".Equals(request.UpgradeType))
