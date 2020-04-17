@@ -50,6 +50,8 @@ namespace DotnetCoreServer.Controllers
             {
                 result.ResultCode = 1;
                 result.Message    = "Success!";
+
+                userDao.GetUser(point.UserID).Point += point.AddPoint;
             }
             else
             {
