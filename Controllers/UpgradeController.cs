@@ -42,15 +42,25 @@ namespace DotnetCoreServer.Controllers
 
             User user = this.userDao.GetUser(request.UserID);
             UpgradeData upgradeInfo = null;
-            if("Health".Equals(request.UpgradeType)){
+
+            if("Health".Equals(request.UpgradeType))
+            {
                 upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.HealthLevel + 1);
-            }else if("Damage".Equals(request.UpgradeType)){
-                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.HealthLevel + 1);
-            }else if("Defense".Equals(request.UpgradeType)){
-                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.HealthLevel + 1);
-            }else if("Speed".Equals(request.UpgradeType)){
-                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.HealthLevel + 1);
-            }else{
+            }
+            else if("Damage".Equals(request.UpgradeType))
+            {
+                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.DamageLevel + 1);
+            }
+            else if("Defense".Equals(request.UpgradeType))
+            {
+                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.DefenseLevel + 1);
+            }
+            else if("Speed".Equals(request.UpgradeType))
+            {
+                upgradeInfo = this.upgradeDao.GetUpgradeInfo(request.UpgradeType, user.SpeedLevel + 1);
+            }
+            else
+            {
                 // 유효하지 않은 업그레이드 타입입니다.
             }
 
@@ -63,32 +73,40 @@ namespace DotnetCoreServer.Controllers
 
             }
 
-            if(upgradeInfo == null){
+            if(upgradeInfo == null)
+            {
                 // 최대 레벨에 도달했습니다.
                 result.ResultCode = 4;
                 result.Message = "Upgrade Fail : Max Level";
                 return result;
             }
 
-            if("Health".Equals(request.UpgradeType)){
+            if("Health".Equals(request.UpgradeType))
+            {
 
                 user.HealthLevel = user.HealthLevel + 1;
                 user.Health = user.Health + upgradeInfo.UpgradeAmount;
                 user.Diamond = user.Diamond - upgradeInfo.UpgradeCost;
 
-            }else if("Damage".Equals(request.UpgradeType)){
+            }
+            else if("Damage".Equals(request.UpgradeType))
+            {
                 
                 user.DamageLevel = user.DamageLevel + 1;
                 user.Damage = user.Damage + upgradeInfo.UpgradeAmount;
                 user.Diamond = user.Diamond - upgradeInfo.UpgradeCost;
 
-            }else if("Defense".Equals(request.UpgradeType)){
+            }
+            else if("Defense".Equals(request.UpgradeType))
+            {
                 
                 user.DefenseLevel = user.DefenseLevel + 1;
                 user.Defense = user.Defense + upgradeInfo.UpgradeAmount;
                 user.Diamond = user.Diamond - upgradeInfo.UpgradeCost;
 
-            }else if("Speed".Equals(request.UpgradeType)){
+            }
+            else if("Speed".Equals(request.UpgradeType))
+            {
 
                 user.SpeedLevel = user.SpeedLevel + 1;
                 user.Speed = user.Speed + upgradeInfo.UpgradeAmount;
