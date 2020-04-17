@@ -16,6 +16,9 @@ namespace DotnetCoreServer.Models
     public class GainPointResult
     {
         public int ResultCode;
+
+        public int AddPoint; 
+
         public string Message;
     }
 }
