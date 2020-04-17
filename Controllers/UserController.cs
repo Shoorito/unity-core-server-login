@@ -40,7 +40,6 @@ namespace DotnetCoreServer.Controllers
         }
 
         [HttpPost]
-
         public GainPointResult GainPoint([FromBody] GainPoint point)
         {
             GainPointResult result = null;
