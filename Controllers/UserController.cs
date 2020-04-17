@@ -48,16 +48,16 @@ namespace DotnetCoreServer.Controllers
             user   = userDao.GetUser(point.UserID);
             result = new GainPointResult();
 
-            if(userDao.GetUser(point.UserID) != null && userDao != null)
+            if(user != null)
             {
 
                 result.ResultCode = 1;
                 result.AddPoint   = point.AddPoint;
                 result.Message    = "Success!";
 
-                userDao.GetUser(point.UserID).Point = userDao.GetUser(point.UserID).Point + point.AddPoint;
+                user.Point = user.Point + point.AddPoint;
 
-
+                userDao.UpdateUser(user);
             }
             else
             {
