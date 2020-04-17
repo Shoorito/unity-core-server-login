@@ -139,7 +139,7 @@ namespace DotnetCoreServer.Controllers
                 result.AddPoint   = point.AddPoint;
                 result.Message    = "Success!";
 
-                user.Point = user.Point + point.AddPoint;
+                user.Point += point.AddPoint;
 
                 this.userDao.UpdateUser(user);
             }
